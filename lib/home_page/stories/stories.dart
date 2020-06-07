@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_mock/home_page/stories/story_item.dart';
 
 class Stories extends StatelessWidget {
   @override
@@ -10,11 +11,7 @@ class Stories extends StatelessWidget {
             height: 100,
             child: ListView.builder(
               itemBuilder: (context, i) {
-                return Container(
-                  height: 30,
-                  width: 40,
-                  color: Colors.red,
-                );
+                return StoryItem();
               },
               scrollDirection: Axis.horizontal,
             ),

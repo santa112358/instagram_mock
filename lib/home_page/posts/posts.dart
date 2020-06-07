@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_mock/home_page/posts/post_item.dart';
 
 class Posts extends StatelessWidget {
   @override
@@ -6,12 +7,7 @@ class Posts extends StatelessWidget {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, i) {
-          return Container(
-            height: 200,
-            width: 300,
-            color: Colors.green,
-            child: Text("$i"),
-          );
+          return PostItem();
         },
         childCount: 20,
       ),
