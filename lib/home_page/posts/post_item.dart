@@ -21,8 +21,8 @@ class PostItem extends StatelessWidget {
               ),
               CircleImage(
                 imageUrl: jobsImage,
-                width: 48,
-                height: 48,
+                width: 44,
+                height: 44,
               ),
               const SizedBox(
                 width: 8,
@@ -30,6 +30,11 @@ class PostItem extends StatelessWidget {
               Text(
                 "Steeve",
                 style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const Spacer(),
+              Icon(Icons.more_horiz),
+              const SizedBox(
+                width: 8,
               ),
             ],
           ),
@@ -41,6 +46,42 @@ class PostItem extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
+        SizedBox(
+          height: 60,
+          child: Row(
+            children: <Widget>[
+              const SizedBox(
+                width: 12,
+              ),
+              Icon(
+                Icons.favorite_border,
+                size: 32,
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Icon(
+                Icons.comment,
+                size: 32,
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Icon(
+                Icons.send,
+                size: 32,
+              ),
+              const Spacer(),
+              Icon(
+                Icons.bookmark_border,
+                size: 32,
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+            ],
+          ),
+        )
       ],
     );
   }
