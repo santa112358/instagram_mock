@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_mock/components/circle_image.dart';
 import 'package:instagram_mock/functions.dart';
-import 'package:instagram_mock/home_page/stories/story_detail/story_detail.dart';
+
+import 'story_page_view/story_page_view.dart';
 
 class StoryItem extends StatelessWidget {
   @override
@@ -12,7 +13,7 @@ class StoryItem extends StatelessWidget {
       children: <Widget>[
         GestureDetector(
           onTap: () {
-            navigatePage(context, StoryDetail());
+            navigatePage(context, StoryPageView());
           },
           child: Container(
             width: 68,
