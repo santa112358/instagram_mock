@@ -14,11 +14,55 @@ class StoryPage extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        IconButton(
-          icon: Icon(Icons.close),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: LinearProgressIndicator(
+                      backgroundColor: const Color.fromRGBO(255, 255, 255, 0.5),
+                      valueColor:
+                          const AlwaysStoppedAnimation<Color>(Colors.white),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: LinearProgressIndicator(
+                      backgroundColor: const Color.fromRGBO(255, 255, 255, 0.5),
+                      valueColor:
+                          const AlwaysStoppedAnimation<Color>(Colors.white),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: LinearProgressIndicator(
+                      backgroundColor: const Color.fromRGBO(255, 255, 255, 0.5),
+                      valueColor:
+                          const AlwaysStoppedAnimation<Color>(Colors.white),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.close,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
         ),
       ],
     );
