@@ -17,11 +17,14 @@ class StoryItem extends StatelessWidget {
         horizontal: 12,
       ),
       padding: EdgeInsets.all(2),
-      child: Container(
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.red,
-            shape: BoxShape.circle,
+      child: Center(
+        child: ClipOval(
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: Image.network(
+              "https://s3.amazonaws.com/production.mediajoint.prx.org/public/piece_images/421548/jobs_square.jpg",
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ),
