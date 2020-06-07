@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_mock/components/circle_image.dart';
+import 'package:instagram_mock/functions.dart';
+import 'package:instagram_mock/home_page/stories/story_detail/story_detail.dart';
 
 class StoryItem extends StatelessWidget {
   @override
@@ -8,22 +10,27 @@ class StoryItem extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Container(
-          width: 68,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: Colors.green,
-              width: 2,
+        GestureDetector(
+          onTap: () {
+            navigatePage(context, StoryDetail());
+          },
+          child: Container(
+            width: 68,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: Colors.green,
+                width: 2,
+              ),
             ),
-          ),
-          margin: EdgeInsets.symmetric(
-            horizontal: 12,
-          ),
-          padding: EdgeInsets.all(2),
-          child: CircleImage(
-            imageUrl:
-                "https://s3.amazonaws.com/production.mediajoint.prx.org/public/piece_images/421548/jobs_square.jpg",
+            margin: EdgeInsets.symmetric(
+              horizontal: 12,
+            ),
+            padding: EdgeInsets.all(2),
+            child: CircleImage(
+              imageUrl:
+                  "https://s3.amazonaws.com/production.mediajoint.prx.org/public/piece_images/421548/jobs_square.jpg",
+            ),
           ),
         ),
         Text(

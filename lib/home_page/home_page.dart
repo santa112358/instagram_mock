@@ -7,7 +7,11 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Instagram mock"),
+        centerTitle: true,
+        title: Text("Stevegram"),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.send), onPressed: () {}),
+        ],
       ),
       body: CustomScrollView(
         slivers: <Widget>[
