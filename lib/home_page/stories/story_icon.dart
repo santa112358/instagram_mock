@@ -5,7 +5,7 @@ import 'package:instagram_mock/functions.dart';
 
 import 'story_page_view/story_page_view.dart';
 
-class StoryItem extends StatelessWidget {
+class StoryIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(

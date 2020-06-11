@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_mock/home_page/stories/story_item.dart';
+import 'package:instagram_mock/home_page/stories/story_icon.dart';
 
 class Stories extends StatelessWidget {
   @override
@@ -11,7 +11,7 @@ class Stories extends StatelessWidget {
             height: 100,
             child: ListView.builder(
               itemBuilder: (context, i) {
-                return StoryItem();
+                return StoryIcon();
               },
               scrollDirection: Axis.horizontal,
             ),
