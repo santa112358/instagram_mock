@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_mock/home_page/stories/story_icon.dart';
 
+/// List of [StoryIcon]
 class Stories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

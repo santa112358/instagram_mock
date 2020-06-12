@@ -5,6 +5,9 @@ import 'package:instagram_mock/functions.dart';
 
 import 'story_page_view/story_page_view.dart';
 
+/// Icon of story
+///
+/// Navigates to [StoryDetail] in onTap()
 class StoryIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
