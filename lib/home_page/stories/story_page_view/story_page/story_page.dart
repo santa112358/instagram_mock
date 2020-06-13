@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_mock/constants.dart';
 
+/// Shows detail of story
 class StoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
