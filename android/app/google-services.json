@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "896276840664",
+    "firebase_url": "https://instagram-mock-15eda.firebaseio.com",
+    "project_id": "instagram-mock-15eda",
+    "storage_bucket": "instagram-mock-15eda.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:896276840664:android:fa25e44f36db5556a817ad",
+        "android_client_info": {
+          "package_name": "com.example.instagram_mock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "896276840664-so5cmu2rjgh8sdlpjd0t0ipom19398hr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBb1WjXm8ZKXtsQYKRXtiKkp7Up4JF4EL4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "896276840664-so5cmu2rjgh8sdlpjd0t0ipom19398hr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
