@@ -10,8 +10,14 @@ class PostPage extends StatefulWidget {
 }
 
 class _PostPageState extends State<PostPage> {
-  File _image;
-  int _numOfFaces = 20;
+  List<File> _images = [];
+  List<int> _imageIDs = [];
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,17 +25,54 @@ class _PostPageState extends State<PostPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(_numOfFaces.toString()),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: _imageIDs
+                  .asMap()
+                  .map(
+                    (key, id) => MapEntry(
+                      key,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text("$id"),
+                      ),
+                    ),
+                  )
+                  .values
+                  .toList(),
+            ),
             FlatButton(
-              child: Text("POST"),
-              onPressed: _onPickImageSelected,
+              child: Text("Pick image"),
+              onPressed: _pickImage1,
               color: Colors.indigoAccent,
             ),
-            if (_image != null) Image.file(_image),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: _images
+                  .asMap()
+                  .map(
+                    (key, image) => MapEntry(
+                      key,
+                      ImageItem(key, image),
+                    ),
+                  )
+                  .values
+                  .toList(),
+            ),
             FlatButton(
               onPressed: _startVerification,
               child: Text("verificate"),
               color: Colors.blue,
+            ),
+            FlatButton(
+              onPressed: () {
+                setState(() {
+                  _images = [];
+                  _imageIDs = [];
+                });
+              },
+              child: Text("remove images"),
+              color: Colors.red,
             )
           ],
         ),
@@ -37,13 +80,13 @@ class _PostPageState extends State<PostPage> {
     );
   }
 
-  void _onPickImageSelected() async {
+  void _pickImage1() async {
     var imageSource = ImageSource.gallery;
 
     try {
       final file = await ImagePicker().getImage(source: imageSource);
       setState(() {
-        _image = File(file.path);
+        _images.add(File(file.path));
       });
       if (file == null) {
         throw Exception('ファイルを取得できませんでした');
@@ -52,15 +95,67 @@ class _PostPageState extends State<PostPage> {
   }
 
   void _startVerification() async {
-    final FirebaseVisionImage visionImage =
-        FirebaseVisionImage.fromFile(_image);
-    final FaceDetector faceDetector = FirebaseVision.instance.faceDetector();
-    final List<Face> faces = await faceDetector.processImage(visionImage);
-    setState(
-      () {
-        _numOfFaces = faces.length != null ? faces.length : 0;
+    final FaceDetectorOptions options =
+        FaceDetectorOptions(enableTracking: true, enableContours: false);
+    final FaceDetector faceDetector =
+        FirebaseVision.instance.faceDetector(options);
+
+//    final FirebaseVisionImage visionImage1 =
+//        FirebaseVisionImage.fromFile(_images[0]);
+//
+//    final FirebaseVisionImage visionImage2 =
+//        FirebaseVisionImage.fromFile(_images[1]);
+//    faceDetector.processImage(visionImage1).asStream().listen((event) {
+//      faceDetector.processImage(visionImage2).asStream().listen((event2) {
+//        final id1 = event[0]?.trackingId ?? 9999;
+//        final id2 = event2[0]?.trackingId ?? 9999;
+//        final test = [id1, id2];
+//        setState(
+//          () {
+//            _imageIDs = test;
+//          },
+//        );
+//      });
+//    });
+    final faces = _images.map(
+      (image) async {
+        final FirebaseVisionImage visionImage =
+            FirebaseVisionImage.fromFile(image);
+        final face = await faceDetector.processImage(visionImage);
+        return face.length != 0 ? face[0].trackingId : 9999;
       },
-    );
+    ).toList();
+
+    final test = await Future.wait(faces);
+
+    setState(() {
+      _imageIDs = test;
+    });
+
     faceDetector.close();
+  }
+}
+
+class ImageItem extends StatelessWidget {
+  final File image;
+  final int index;
+
+  ImageItem(this.index, this.image);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Text("image$index"),
+        SizedBox(
+          height: 60,
+          width: 60,
+          child: Image.file(
+            image,
+            fit: BoxFit.cover,
+          ),
+        ),
+      ],
+    );
   }
 }
