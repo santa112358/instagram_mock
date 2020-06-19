@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_mock/home_page/posts/posts.dart';
 import 'package:instagram_mock/home_page/stories/stories.dart';
@@ -18,6 +19,11 @@ class HomePage extends StatelessWidget {
           Stories(),
           Posts(),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Firestore.instance.collection("test").add({"test": "test"});
+        },
       ),
     );
   }

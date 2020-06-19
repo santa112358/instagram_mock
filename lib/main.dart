@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_mock/home_page/home_page.dart';
+import 'package:instagram_mock/main_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Theme.of(context).colorScheme.onPrimary,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomePage(),
+      home: MainPage(),
     );
   }
 }
