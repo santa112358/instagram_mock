@@ -99,24 +99,6 @@ class _PostPageState extends State<PostPage> {
         FaceDetectorOptions(enableTracking: true, enableContours: false);
     final FaceDetector faceDetector =
         FirebaseVision.instance.faceDetector(options);
-
-//    final FirebaseVisionImage visionImage1 =
-//        FirebaseVisionImage.fromFile(_images[0]);
-//
-//    final FirebaseVisionImage visionImage2 =
-//        FirebaseVisionImage.fromFile(_images[1]);
-//    faceDetector.processImage(visionImage1).asStream().listen((event) {
-//      faceDetector.processImage(visionImage2).asStream().listen((event2) {
-//        final id1 = event[0]?.trackingId ?? 9999;
-//        final id2 = event2[0]?.trackingId ?? 9999;
-//        final test = [id1, id2];
-//        setState(
-//          () {
-//            _imageIDs = test;
-//          },
-//        );
-//      });
-//    });
     final faces = _images.map(
       (image) async {
         final FirebaseVisionImage visionImage =
