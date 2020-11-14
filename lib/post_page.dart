@@ -11,7 +11,6 @@ class PostPage extends StatefulWidget {
 
 class _PostPageState extends State<PostPage> {
   List<File> _images = [];
-  List<int> _imageIDs = [];
 
   @override
   void initState() {
@@ -27,27 +26,6 @@ class _PostPageState extends State<PostPage> {
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: _imageIDs
-                  .asMap()
-                  .map(
-                    (key, id) => MapEntry(
-                      key,
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text("$id"),
-                      ),
-                    ),
-                  )
-                  .values
-                  .toList(),
-            ),
-            FlatButton(
-              child: Text("Pick image"),
-              onPressed: _pickImage1,
-              color: Colors.indigoAccent,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: _images
                   .asMap()
                   .map(
@@ -61,21 +39,15 @@ class _PostPageState extends State<PostPage> {
             ),
             FlatButton(
               onPressed: _startVerification,
-              child: Text("verificate"),
+              child: Text('verificate'),
               color: Colors.blue,
             ),
-            FlatButton(
-              onPressed: () {
-                setState(() {
-                  _images = [];
-                  _imageIDs = [];
-                });
-              },
-              child: Text("remove images"),
-              color: Colors.red,
-            )
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _pickImage1,
+        child: Icon(Icons.add),
       ),
     );
   }
@@ -99,21 +71,6 @@ class _PostPageState extends State<PostPage> {
         FaceDetectorOptions(enableTracking: true, enableContours: false);
     final FaceDetector faceDetector =
         FirebaseVision.instance.faceDetector(options);
-    final faces = _images.map(
-      (image) async {
-        final FirebaseVisionImage visionImage =
-            FirebaseVisionImage.fromFile(image);
-        final face = await faceDetector.processImage(visionImage);
-        return face.length != 0 ? face[0].trackingId : 9999;
-      },
-    ).toList();
-
-    final test = await Future.wait(faces);
-
-    setState(() {
-      _imageIDs = test;
-    });
-
     faceDetector.close();
   }
 }
