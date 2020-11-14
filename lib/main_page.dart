@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_mock/home_page/home_page.dart';
-import 'package:instagram_mock/post_page.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -36,7 +35,11 @@ class _MainPageState extends State<MainPage>
         controller: _tabController,
         children: [
           HomePage(),
-          PostPage(),
+          Scaffold(
+            body: Center(
+              child: Text("Post Page"),
+            ),
+          ),
         ],
       ),
     );
