@@ -4,6 +4,12 @@ import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+enum checkCondition {
+  notChecked,
+  hasFace,
+  noFace,
+}
+
 class PostPage extends StatefulWidget {
   @override
   _PostPageState createState() => _PostPageState();
@@ -11,6 +17,7 @@ class PostPage extends StatefulWidget {
 
 class _PostPageState extends State<PostPage> {
   List<File> _images = [];
+  List<checkCondition> _conditions = [];
 
   @override
   void initState() {
@@ -21,28 +28,17 @@ class _PostPageState extends State<PostPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: _images
-                  .asMap()
-                  .map(
-                    (key, image) => MapEntry(
-                      key,
-                      ImageItem(key, image),
-                    ),
-                  )
-                  .values
-                  .toList(),
-            ),
-            FlatButton(
-              onPressed: _startVerification,
-              child: Text('verificate'),
-              color: Colors.blue,
-            ),
-          ],
+        child: ListView.builder(
+          itemCount: _images.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              leading: Image.file(_images[index]),
+              title: Text(_conditions[index].toString()),
+              onTap: () {
+                _startVerification(index);
+              },
+            );
+          },
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -59,6 +55,7 @@ class _PostPageState extends State<PostPage> {
       final file = await ImagePicker().getImage(source: imageSource);
       setState(() {
         _images.add(File(file.path));
+        _conditions.add(checkCondition.notChecked);
       });
       if (file == null) {
         throw Exception('ファイルを取得できませんでした');
@@ -66,11 +63,18 @@ class _PostPageState extends State<PostPage> {
     } catch (e) {}
   }
 
-  void _startVerification() async {
+  void _startVerification(int selectedIndex) async {
     final FaceDetectorOptions options =
         FaceDetectorOptions(enableTracking: true, enableContours: false);
+    final FirebaseVisionImage visionImage =
+        FirebaseVisionImage.fromFile(_images[selectedIndex]);
     final FaceDetector faceDetector =
         FirebaseVision.instance.faceDetector(options);
+    final test = await faceDetector.processImage(visionImage);
+    setState(() {
+      _conditions[selectedIndex] =
+          test.isNotEmpty ? checkCondition.hasFace : checkCondition.noFace;
+    });
     faceDetector.close();
   }
 }
